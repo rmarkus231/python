@@ -20,9 +20,8 @@ def check_saves(n=""):
 #salvestab tegelase
 def save_player(n="",d=0,s=0,m=0,p=0):
     save=open("saves.txt","a+")
-    print(n,d,s,m,p)
     nn=n.replace(" ","-")
-    save.write(nn+","+str(d)+","+str(s)+","+str(m)+","+str(p))
+    save.write(nn+","+str(d)+","+str(s)+","+str(m)+","+str(p)+"\n")
     return
 
 
@@ -35,6 +34,7 @@ translate = {
 }
 
 stats=["defence","strength","magic","perception"]
+
 #tegelane
 class createPlayer:
     #atribuudid
@@ -74,7 +74,8 @@ def find_skill():
                 while x < int(j):
                     j=input("Peab olema väiksem kui olemasolevad punktid: ")
                     if i !=2:
-                        s=int(j)+","
+                        s=int(j)
+                        s=str(s)+","
                     elif i ==2:
                         s=int(j)
                 x=x-int(j)
@@ -160,8 +161,3 @@ if y == "jah":
     print(player.showStats())
     
     
-            
-
-
-
-
