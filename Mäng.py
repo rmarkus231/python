@@ -13,8 +13,8 @@ def check_saves(n=""):
         sn,sd,ss,sm,sp=saves[i].split(",")
         if sn == n:
             n=n.replace("-"," ")
-            p = createPlayer(sn,sd,ss,sm,sp)
-        return p
+            pl = createPlayer(sn,sd,ss,sm,sp)
+            return pl
     return 0
 
 #salvestab tegelase
@@ -31,7 +31,7 @@ translate = {
     "defence":"Kaitses",
     "strength":"tugevuses",
     "magic":"maagias",
-    "perception":"täpsuses",
+    "perception":"laskmises",
 }
 
 stats=["defence","strength","magic","perception"]
@@ -61,39 +61,67 @@ class createPlayer:
         print(f"Maagia: {self.magic}")
         time.sleep(t)
         print(f"Täpsus: {self.perception} \n")
+        
+#skilli saamise funktsioon
+def find_skill():
+    skill=""
+    x=100
+    print(f"Sul on {x} skillpointi jagada")
+    for i in range(len(stats)-1):
+        if x != 0:
+            j=input(f"Ma olin vist {translate[stats[i]]} nii hea: ")
+            if x < int(j):
+                while x < int(j):
+                    j=input("Peab olema väiksem kui olemasolevad punktid: ")
+                    if i !=2:
+                        s=int(j)+","
+                    elif i ==2:
+                        s=int(j)
+                x=x-int(j)
+                
+            elif i != 2:
+                x=x-int(j)
+                s=int(j)
+                s=str(s)+","
+                
+            elif i == 2:
+                x=x-int(j)
+                s=int(j)
+                s=str(s)
+            skill=skill+s
+        else:
+            if x == 0:
+                print(f"Ma olin {translate[stats[i]]} nii hea: 0")
+                if i != 2:
+                    s=0
+                    s=str(s)+","
+                elif i == 2:
+                    s=0
+                    s=str(s)
+            skill=skill+s
+        print(f"Sul on {x} skillpointi jagada")
+        time.sleep(1)
+    return skill
 
 #tegelase loomise funktsioon      
 def createCharacter():
     n=input("Mu nimi oli vist: ")
-    d=0
-    s=0
-    m=0
-    p=0
-    x=100
     if check_saves(n) != 0:
         print(f"Salvestatud karakteritest leiti {n}")
         return check_saves(n)
     else:
-        print(f"Sul on {x} skillpointi jagada")
-        for i in range(len(stats)-1):
-            j=input(f"Ma olin vist {translate[stats[i]]} nii hea: ")
-            if i == 0:
-                d=int(j)
-            if i == 1:
-                if x > 0:
-                    s=0
-                else:
-                    s=int(j)
-            if i == 2:
-                if x > 0:
-                    m=0
-                else:
-                    m=int(j)
-            print(f"Sul on {x-d-s-m-p} skillpointi jagada")
-            time.sleep(1)
-        print(f"Ma olin {translate[stats[3]]} kindlasti nii hea: {x-d-s-m}")
-        p=x-d-s-m
-        sav=input("Kas soovite tegelase salvestada? (jah,ei)\n")
+        
+        d,s,m=find_skill().split(",")
+        
+        d=int(d)
+        s=int(s)
+        m=int(m)
+        
+        print(f"Ma olin {translate[stats[3]]} kindlasti nii hea: {100-d-s-m}")
+        
+        p=100-d-s-m
+        
+        sav=input("Kas soovite tegelase salvestada? (jah/ei)\n")
         if sav == "jah":
             save_player(n,d,s,m,p)
         p = createPlayer(n,d,s,m,p)
