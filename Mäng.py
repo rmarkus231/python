@@ -80,9 +80,15 @@ def createCharacter():
             if i == 0:
                 d=int(j)
             if i == 1:
-                s=int(j)
+                if x > 0:
+                    s=0
+                else:
+                    s=int(j)
             if i == 2:
-                m=int(j)
+                if x > 0:
+                    m=0
+                else:
+                    m=int(j)
             print(f"Sul on {x-d-s-m-p} skillpointi jagada")
             time.sleep(1)
         print(f"Ma olin {translate[stats[3]]} kindlasti nii hea: {x-d-s-m}")
