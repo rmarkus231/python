@@ -62,7 +62,7 @@ class createPlayer:
         time.sleep(t)
         print(f"Täpsus: {self.perception} \n")
         
-#skilli saamise funktsioon
+#lollikindel skilli saamise funktsioon
 def find_skill():
     skill=""
     x=100
@@ -91,7 +91,7 @@ def find_skill():
             skill=skill+s
         else:
             if x == 0:
-                print(f"Ma olin {translate[stats[i]]} nii hea: 0")
+                print(f"Ma {translate[stats[i]]}t üldse ei osanud: 0")
                 if i != 2:
                     s=0
                     s=str(s)+","
